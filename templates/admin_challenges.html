@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Challenges — grouped by difficulty tier</h1>
+<p class="dim">Toggling a challenge takes effect immediately for all participants — no restart needed.</p>
+
+{% for tier in ['easy', 'medium', 'hard', 'insane'] %}
+  {% set rows = by_difficulty.get(tier, []) %}
+  {% if rows %}
+    <div class="tier-heading">
+      <span class="diff-badge diff-{{ tier }}">{{ tier }}</span>
+      <h2 style="margin:0;">{{ rows|length }} challenge{{ 's' if rows|length != 1 else '' }}</h2>
+    </div>
+    <table>
+      <tr><th>Title</th><th>Category</th><th>Pts</th><th>Active (visible to players)</th><th></th></tr>
+      {% for r in rows %}
+      <tr class="diff-{{ tier }}">
+        <td>{{ r.title }}</td>
+        <td>{{ r.category }}</td>
+        <td>{{ r.points }}</td>
+        <td>{{ '✅ Live' if r.is_active else '🚫 Hidden' }}</td>
+        <td>
+          <form method="post" action="{{ url_for('admin_toggle_challenge', cid=r.id) }}">
+            <button class="ghost">{{ 'Deactivate' if r.is_active else 'Activate' }}</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+{% endfor %}
+{% endblock %}

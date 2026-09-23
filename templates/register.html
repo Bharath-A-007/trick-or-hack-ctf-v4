@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>🕯️ Form Your Coven (Team)</h1>
+<p class="dim">Up to {{ max_members }} members. Each member gets their own username/password and logs in
+from their own machine — points sync instantly for the whole team.</p>
+<form method="post">
+  <label>Team Name</label>
+  <input name="team_name" required maxlength="40" placeholder="The Headless Hackers">
+
+  <div id="members">
+    <div class="member-row">
+      <label>Member 1 (captain) — username</label>
+      <input name="username" required maxlength="30">
+      <label>Password</label>
+      <input name="password" type="password" required minlength="6">
+    </div>
+  </div>
+
+  <button type="button" class="btn ghost" onclick="addMember()">+ Add another member</button>
+  <br><br>
+  <button type="submit">Register Team</button>
+</form>
+
+<script>
+let count = 1;
+const max = {{ max_members }};
+function addMember() {
+  if (count >= max) { alert("Max " + max + " members per team."); return; }
+  count++;
+  const div = document.createElement('div');
+  div.className = 'member-row';
+  div.innerHTML = `<label>Member ${count} — username</label><input name="username" required maxlength="30">
+    <label>Password</label><input name="password" type="password" required minlength="6">`;
+  document.getElementById('members').appendChild(div);
+}
+</script>
+{% endblock %}

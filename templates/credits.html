@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="credits-page">
+<h1>🕯️ In Honor of Those Who Built This Crypt</h1>
+<p class="dim">{{ credits.department }} — {{ credits.club }}</p>
+<div>
+{% for person in credits.team %}
+  <div class="tombstone">
+    <div class="role">{{ person.role }}</div>
+    <div class="name">{{ person.name }}</div>
+    <div class="rip">R.I.P. bugs<br>slain in testing</div>
+  </div>
+{% endfor %}
+</div>
+</div>
+{% endblock %}

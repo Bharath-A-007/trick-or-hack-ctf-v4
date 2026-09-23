@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Teams</h1>
+<table><tr><th>Team</th><th>Members</th><th>Score</th><th>Status</th><th>Distinct IPs</th><th></th></tr>
+{% for t in teams %}
+<tr>
+  <td>{{ t.name }}</td><td>{{ t.member_count }}</td><td>{{ t.score }}</td>
+  <td>{{ t.status }}{% if t.ip_count and t.ip_count >= 3 %} ⚠️{% endif %}</td>
+  <td>{{ t.ip_count }}</td>
+  <td><a class="btn ghost" href="{{ url_for('admin_team_detail', team_id=t.id) }}">View</a></td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,167 @@
+:root {
+  --bg-black: #0d0908;
+  --bg-card: #1a1210;
+  --bg-card-hover: #241914;
+  --orange: #ff7518;
+  --orange-glow: #ffb347;
+  --orange-dim: #b8560f;
+  --purple: #6b2fa0;
+  --text-main: #f4e9df;
+  --text-dim: #b8a99a;
+  --danger: #ff4d4d;
+  --success: #6ee787;
+  --border: #3a2418;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: radial-gradient(circle at 50% 0%, #241611 0%, var(--bg-black) 60%);
+  color: var(--text-main);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* --- flying bats --- */
+.bat { position: fixed; font-size: 28px; opacity: 0.55; z-index: 0; animation: fly 18s linear infinite; pointer-events: none; }
+.b1 { top: 8%; animation-duration: 22s; }
+.b2 { top: 35%; animation-duration: 27s; animation-delay: -8s; }
+.b3 { top: 60%; animation-duration: 19s; animation-delay: -3s; }
+@keyframes fly {
+  0%   { left: -10%; transform: translateY(0) scale(1); }
+  50%  { transform: translateY(-30px) scale(1.1); }
+  100% { left: 110%; transform: translateY(0) scale(1); }
+}
+
+.navbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 32px; background: linear-gradient(180deg, #180f0b, transparent);
+  border-bottom: 2px solid var(--orange-dim);
+  position: relative; z-index: 2;
+}
+.brand { color: var(--orange-glow); font-size: 1.4rem; font-weight: 800; text-decoration: none; text-shadow: 0 0 12px var(--orange); }
+.nav-links a { color: var(--text-dim); text-decoration: none; margin-left: 20px; font-weight: 600; }
+.nav-links a:hover { color: var(--orange-glow); }
+.nav-links .cta { background: var(--orange); color: #1a0f08; padding: 6px 14px; border-radius: 6px; }
+.nav-links .admin-link { color: var(--purple); }
+
+.container { max-width: 1000px; margin: 0 auto; padding: 32px 20px; position: relative; z-index: 1; }
+
+.hero { text-align: center; padding: 60px 20px; }
+.hero .pumpkin { font-size: 6rem; filter: drop-shadow(0 0 24px var(--orange)); animation: pulse 3s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { transform: scale(1);} 50% { transform: scale(1.08); } }
+.hero h1 { font-size: 2.6rem; color: var(--orange-glow); text-shadow: 0 0 18px var(--orange); margin-bottom: 8px; }
+.hero p { color: var(--text-dim); font-size: 1.1rem; }
+
+.card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 20px 24px; margin-bottom: 18px; transition: 0.2s;
+}
+.card:hover { background: var(--bg-card-hover); border-color: var(--orange-dim); }
+
+.category-title { color: var(--orange-glow); border-bottom: 2px solid var(--orange-dim); padding-bottom: 6px; margin-top: 34px; }
+
+.chall-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 14px; }
+.chall-tile {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+  text-decoration: none; color: var(--text-main); position: relative;
+}
+.chall-tile.solved { border-color: var(--success); opacity: 0.75; }
+.chall-tile .diff { font-size: 0.75rem; text-transform: uppercase; color: var(--orange-dim); }
+.chall-tile .pts { color: var(--orange-glow); font-weight: 700; float: right; }
+.chall-tile .web-corner { position: absolute; top: -8px; right: -6px; font-size: 22px; opacity: 0.7; }
+
+input, textarea, select {
+  width: 100%; padding: 10px 12px; margin: 6px 0 14px; border-radius: 6px;
+  border: 1px solid var(--border); background: #120b08; color: var(--text-main);
+}
+button, .btn {
+  background: linear-gradient(135deg, var(--orange), var(--orange-dim));
+  color: #1a0f08; border: none; padding: 10px 22px; border-radius: 8px; font-weight: 700;
+  cursor: pointer; text-decoration: none; display: inline-block;
+}
+button.danger { background: var(--danger); color: #fff; }
+button.ghost { background: transparent; border: 1px solid var(--orange-dim); color: var(--orange-glow); }
+
+.flash { padding: 10px 16px; border-radius: 8px; margin-bottom: 16px; font-weight: 600; }
+.flash-error { background: #3a1414; color: var(--danger); border: 1px solid var(--danger); }
+.flash-success { background: #14301c; color: var(--success); border: 1px solid var(--success); }
+
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 10px; border-bottom: 1px solid var(--border); text-align: left; }
+th { color: var(--orange-glow); }
+
+.lockout-banner { background: #2a1010; border: 1px solid var(--danger); color: var(--danger); padding: 12px; border-radius: 8px; margin-bottom: 16px; font-weight: 700; }
+
+.credits-page { text-align: center; }
+.tombstone {
+  background: linear-gradient(180deg, #2a2a2a, #1a1a1a); border-radius: 50% 50% 8px 8px / 25% 25% 8px 8px;
+  border: 2px solid #555; padding: 24px 16px; margin: 14px; display: inline-block; width: 200px;
+  vertical-align: top;
+}
+.tombstone .role { color: var(--orange-glow); font-size: 0.85rem; text-transform: uppercase; }
+.tombstone .name { font-size: 1.1rem; font-weight: 700; margin-top: 6px; }
+.tombstone .rip { color: #888; font-size: 0.75rem; margin-top: 10px; }
+
+.footer { text-align: center; padding: 30px 20px; color: var(--text-dim); border-top: 1px solid var(--border); margin-top: 60px; position: relative; }
+.footer .web { position: absolute; top: -14px; left: 30px; font-size: 30px; opacity: 0.5; }
+.footer .dim a { color: var(--orange-dim); }
+
+/* ============================================================
+   DIFFICULTY COLOR GRADING (additive — does not alter the base
+   Halloween theme/palette). Same colors used identically on the
+   participant challenge grid and the admin challenge table:
+   Easy = Green, Medium = Yellow/Gold, Hard = Red, Insane = Purple
+   ============================================================ */
+:root {
+  --diff-easy: #4caf50;
+  --diff-medium: #ffcc33;
+  --diff-hard: #ff4d4d;
+  --diff-insane: #b060ff;
+}
+
+.chall-tile.diff-easy   { border-left: 4px solid var(--diff-easy); }
+.chall-tile.diff-medium { border-left: 4px solid var(--diff-medium); }
+.chall-tile.diff-hard   { border-left: 4px solid var(--diff-hard); }
+.chall-tile.diff-insane { border-left: 4px solid var(--diff-insane); }
+
+.chall-tile.diff-easy   .diff { color: var(--diff-easy); }
+.chall-tile.diff-medium .diff { color: var(--diff-medium); }
+.chall-tile.diff-hard   .diff { color: var(--diff-hard); }
+.chall-tile.diff-insane .diff { color: var(--diff-insane); }
+
+.diff-badge {
+  display: inline-block; padding: 2px 10px; border-radius: 12px;
+  font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+  color: #0d0908;
+}
+.diff-badge.diff-easy   { background: var(--diff-easy); }
+.diff-badge.diff-medium { background: var(--diff-medium); }
+.diff-badge.diff-hard   { background: var(--diff-hard); color: #fff; }
+.diff-badge.diff-insane { background: var(--diff-insane); color: #fff; }
+
+.challenge-detail-card.diff-easy   { border-top: 4px solid var(--diff-easy); }
+.challenge-detail-card.diff-medium { border-top: 4px solid var(--diff-medium); }
+.challenge-detail-card.diff-hard   { border-top: 4px solid var(--diff-hard); }
+.challenge-detail-card.diff-insane { border-top: 4px solid var(--diff-insane); }
+
+/* Team roster on participant dashboard */
+.roster {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 18px;
+}
+.roster .member-chip {
+  background: #241914; border: 1px solid var(--border); border-radius: 20px;
+  padding: 4px 14px; font-size: 0.85rem; color: var(--text-dim);
+}
+.roster .member-chip.captain { border-color: var(--orange-dim); color: var(--orange-glow); font-weight: 700; }
+
+/* Admin challenge table grouped by difficulty tier */
+.tier-heading { display: flex; align-items: center; gap: 10px; margin-top: 30px; }
+.tier-heading h2 { margin: 0; }
+tr.diff-easy   td:first-child { border-left: 3px solid var(--diff-easy); }
+tr.diff-medium td:first-child { border-left: 3px solid var(--diff-medium); }
+tr.diff-hard   td:first-child { border-left: 3px solid var(--diff-hard); }
+tr.diff-insane td:first-child { border-left: 3px solid var(--diff-insane); }

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>👻 Member Login</h1>
+<p class="dim">Log in with your own individual username — not the team name. Any member's actions
+(solves, points) instantly reflect for the whole team on every other member's screen.</p>
+<form method="post">
+  <label>Username</label>
+  <input name="username" required>
+  <label>Password</label>
+  <input name="password" type="password" required>
+  <button type="submit">Enter the Crypt</button>
+</form>
+{% endblock %}

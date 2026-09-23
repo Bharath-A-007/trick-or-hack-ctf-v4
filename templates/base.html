@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Trick or Hack{% endblock %} — CRYPTON CTF</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='spooky.css') }}">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 font-size=%2280%22>🎃</svg>">
+</head>
+<body>
+<div class="bat b1">🦇</div><div class="bat b2">🦇</div><div class="bat b3">🦇</div>
+
+<nav class="navbar">
+  <a class="brand" href="{{ url_for('index') }}">🎃 Trick or Hack</a>
+  <div class="nav-links">
+    <a href="{{ url_for('challenges') }}">Challenges</a>
+    <a href="{{ url_for('scoreboard') }}">Scoreboard</a>
+    <a href="{{ url_for('credits_page') }}">Credits</a>
+    {% if session.get('member_id') %}
+      <a href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+      <a href="{{ url_for('login') }}">Login</a>
+      <a href="{{ url_for('register') }}" class="cta">Register Team</a>
+    {% endif %}
+    {% if session.get('admin_username') %}
+      <a href="{{ url_for('admin_dashboard') }}" class="admin-link">Admin ({{ session.admin_username }})</a>
+      <a href="#" class="admin-link" onclick="return confirmAdminLogout();">Admin Logout</a>
+    {% else %}
+      <a href="{{ url_for('admin_login') }}" class="admin-link">Admin</a>
+    {% endif %}
+  </div>
+</nav>
+<script>
+function confirmAdminLogout() {
+  if (confirm("Log out of the admin panel? You'll need your password to log back in.")) {
+    window.location.href = "{{ url_for('admin_logout') }}";
+  }
+  return false;
+}
+</script>
+
+<main class="container">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, msg in messages %}
+        <div class="flash flash-{{ category }}">{{ msg }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+  <div class="web">🕸️</div>
+  <p>Trick or Hack — organized by <strong>CRYPTON Club</strong>, {{ credits.department if credits else "CSE Cybersecurity" }}.</p>
+  <p class="dim">Beware what lurks in the packets... <a href="{{ url_for('credits_page') }}">Full credits →</a></p>
+</footer>
+</body>
+</html>

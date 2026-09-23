@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ team.name }} — {{ team.score }} pts ({{ team.status }})</h1>
+<h2 class="category-title">Members</h2>
+<ul>{% for m in members %}<li>{{ m.username }}{% if m.is_captain %} (captain){% endif %}</li>{% endfor %}</ul>
+
+<h2 class="category-title">Actions</h2>
+<form method="post" action="{{ url_for('admin_suspend', team_id=team.id) }}" style="display:inline">
+  <button class="danger" {{ 'disabled' if team.status=='suspended' else '' }}>Suspend</button>
+</form>
+<form method="post" action="{{ url_for('admin_reinstate', team_id=team.id) }}" style="display:inline">
+  <button {{ 'disabled' if team.status=='active' else '' }}>Reinstate</button>
+</form>
+
+<form method="post" action="{{ url_for('admin_adjust', team_id=team.id) }}">
+  <label>Score adjustment (+/-)</label><input name="delta" type="number" required>
+  <label>Reason</label><input name="reason" required>
+  <button type="submit">Apply</button>
+</form>
+
+<h2 class="category-title">Score Adjustment Log</h2>
+<table><tr><th>By</th><th>Delta</th><th>Reason</th><th>When</th></tr>
+{% for a in adjustments %}<tr><td>{{ a.admin_username }}</td><td>{{ a.delta }}</td><td>{{ a.reason }}</td><td>{{ a.created_at }}</td></tr>{% endfor %}
+</table>
+
+<h2 class="category-title">Submission History</h2>
+<table><tr><th>Time</th><th>Member</th><th>Challenge</th><th>Flag Tried</th><th>IP</th><th>Result</th></tr>
+{% for s in subs %}
+<tr><td>{{ s.submitted_at }}</td><td>{{ s.username }}</td><td>{{ s.title }}</td><td>{{ s.submitted_flag }}</td><td>{{ s.ip_address }}</td><td>{{ '✅' if s.correct else '❌' }}</td></tr>
+{% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,14 @@
+[Unit]
+Description=Trick or Hack - Witch's Ledger standalone challenge
+After=network.target
+
+[Service]
+User=ctf
+WorkingDirectory=/opt/trickorhack/platform/standalone_challenges/witchs_ledger
+Environment="PATH=/opt/trickorhack/platform/venv/bin"
+ExecStart=/opt/trickorhack/platform/venv/bin/gunicorn -w 2 -b 127.0.0.1:5000 app:app
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

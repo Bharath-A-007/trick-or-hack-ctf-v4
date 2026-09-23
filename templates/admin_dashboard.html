@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>🔮 Admin Dashboard</h1>
+<p class="dim">Logged in as {{ session.admin_username }} · <a href="{{ url_for('admin_teams') }}">Teams</a> · <a href="{{ url_for('admin_challenges') }}">Challenges</a></p>
+<div class="chall-grid">
+  <div class="card"><h3>{{ team_count }}</h3>Teams registered</div>
+  <div class="card"><h3>{{ solve_count }}</h3>Total solves</div>
+  <div class="card"><h3>{{ active_locks }}</h3>Active lockouts right now</div>
+</div>
+<h2 class="category-title">Top Teams</h2>
+<table><tr><th>Team</th><th>Score</th></tr>
+{% for t in top %}<tr><td>{{ t.name }}</td><td>{{ t.score }}</td></tr>{% endfor %}
+</table>
+<h2 class="category-title">Live Activity</h2>
+<table><tr><th>Time</th><th>Team</th><th>Member</th><th>Challenge</th><th>Result</th></tr>
+{% for f in feed %}
+<tr><td>{{ f.submitted_at }}</td><td>{{ f.team }}</td><td>{{ f.member }}</td><td>{{ f.title }}</td>
+<td>{{ '✅' if f.correct else '❌' }}</td></tr>
+{% endfor %}
+</table>
+<script>setTimeout(()=>location.reload(), 10000);</script>
+{% endblock %}

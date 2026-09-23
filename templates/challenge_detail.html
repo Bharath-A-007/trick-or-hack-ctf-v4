@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ chall.title }}</h1>
+<p class="dim">{{ chall.category }} · <span class="diff-badge diff-{{ chall.difficulty }}">{{ chall.difficulty }}</span> · {{ chall.points }} pts</p>
+
+{% if locked_until %}
+  <div class="lockout-banner" id="lockoutBanner">
+    🔒 Locked after 3 wrong flags. Try again after the cooldown — other challenges are still open!
+    <span id="countdown"></span>
+  </div>
+  <script>
+    const until = new Date("{{ locked_until }}").getTime();
+    const el = document.getElementById('countdown');
+    const timer = setInterval(() => {
+      const diff = until - Date.now();
+      if (diff <= 0) { clearInterval(timer); location.reload(); return; }
+      const m = Math.floor(diff/60000), s = Math.floor((diff%60000)/1000);
+      el.textContent = ` (${m}m ${s}s remaining)`;
+    }, 1000);
+  </script>
+{% endif %}
+
+<div class="card challenge-detail-card diff-{{ chall.difficulty }}">
+  <p style="white-space:pre-wrap">{{ chall.description }}</p>
+  {% if chall.attachment_path %}
+    <p><a class="btn ghost" href="{{ url_for('attachments', filename=chall.attachment_path) }}">Download attachment</a></p>
+  {% endif %}
+</div>
+
+{% if already_solved %}
+  <p class="flash flash-success">✅ Your team already claimed this flag.</p>
+{% elif not locked_until %}
+  <form method="post">
+    <label>Flag</label>
+    <input name="flag" placeholder="TOH{...}" required>
+    <button type="submit">Submit Flag</button>
+  </form>
+{% endif %}
+
+<details><summary>Hint 1</summary><p>{{ chall.hint1 or "No hint available." }}</p></details>
+<details><summary>Hint 2</summary><p>{{ chall.hint2 or "No hint available." }}</p></details>
+{% endblock %}
