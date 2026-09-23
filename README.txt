@@ -161,8 +161,5 @@ CREDITS
 ---------
 Department: Students of CSE — Cybersecurity, CRYPTON Club
 Lead Challenge Developer: Bharath A
-Exploit Developer: Chethan Kumar CS
-QA Engineer: Vijay Kumar S
-Lead Organizer: Chinmayi B
 
 Happy haunting, and good luck to every team. 🎃
